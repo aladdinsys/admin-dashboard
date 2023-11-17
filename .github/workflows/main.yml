@@ -51,6 +51,9 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: 'build/*'
           target: '/var/www/html/'
+          script: |
+            whoami
+            ls -al
           
   
       - name: SSH into server and restart Nginx (adjust the command as needed)

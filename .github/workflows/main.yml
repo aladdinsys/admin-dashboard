@@ -28,15 +28,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-    
             
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: 레포지토리 체크아웃
+        uses: actions/checkout@v2  
   
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18'
-  
-      - name: Pnpm install
+      - name: PnPm 으로 노드모듈 설치
         run: pnpm install
   
       - name: Build SvelteKit application
@@ -50,16 +45,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
-          source: 'build/*'
-          target: '/var/www/html/'      
-
-      - name: SSH 명령어 재시작
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.HOST }}
-          port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          key: ${{ secrets.SSH_KEY }}
-          script: |
-            sudo systemctl restart nginx
+          source: '/build'
+          target: '/var/www/html/'

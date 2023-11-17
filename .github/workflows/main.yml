@@ -62,7 +62,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
           source: 'build/*'
-          target: '/home/master/test/'
+          target: '/var/www/html/'
           
   
       - name: SSH into server and restart Nginx (adjust the command as needed)

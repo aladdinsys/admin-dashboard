@@ -1,4 +1,4 @@
-name: 알라딘 관리자페이지 자동배포
+` `  name: 알라딘 관리자페이지 자동배포
 
 on:
   push:
@@ -48,6 +48,7 @@ jobs:
           host: ${{ secrets.HOST }}
           port: ${{ secrets.PORT }}
           username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
           script: |
             whoami

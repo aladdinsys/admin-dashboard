@@ -1,6 +1,7 @@
 {
 	"name": "admin-dashboard",
 	"version": "0.0.1",
+	"packageManager": "pnpm@6.14.1",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",

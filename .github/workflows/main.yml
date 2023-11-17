@@ -51,6 +51,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           source: 'build/*'
           target: '/var/www/html/'
+          
   
       - name: SSH into server and restart Nginx (adjust the command as needed)
         run: ssh -i ${{ secrets.SSH_KEY }} -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'sudo systemctl restart nginx'

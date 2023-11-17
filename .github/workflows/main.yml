@@ -62,4 +62,4 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo systemctl restart nginx
+            systemctl restart nginx

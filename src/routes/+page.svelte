@@ -2,7 +2,7 @@
 	import { A,P, List, Li, Heading } from 'flowbite-svelte';
 </script>
 
-<h1 class="text-4xl dark:text-white py-8">Welcome to Flowbite Svelte Admin Dashboard</h1>
+<h1 class="text-4xl dark:text-white py-8">알라딘 Dashboard</h1>
 
 <Heading tag="h2" class="my-4" customSize="text-3xl">Pages</Heading>
 <List class="space-y-1">

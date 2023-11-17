@@ -45,6 +45,10 @@ jobs:
       - name: test
         uses: appleboy/ssh-action@master
         with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
           script: |
             whoami
   

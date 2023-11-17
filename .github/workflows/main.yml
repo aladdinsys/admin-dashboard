@@ -1,0 +1,40 @@
+name: 알라딘 관리자페이지 자동배포
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Build SvelteKit application
+      run: pnpm run build
+
+    - name: Copy files to server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        source: '/build/*'
+        target: '/var/www/html/'
+
+    - name: SSH into server and restart Nginx (adjust the command as needed)
+      run: ssh -i ${{ secrets.SSH_KEY }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'sudo systemctl restart nginx'

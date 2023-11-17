@@ -45,6 +45,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.SSH_KEY }}
-          strip_components: 2
+          strip_components: 1
           source: 'build/'
           target: '/var/www/html/'

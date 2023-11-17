@@ -36,11 +36,8 @@ jobs:
         with:
           node-version: '18'
   
-      - name: Setup Node.js and install pnpm
-        run: |
-          curl -L https://unpkg.com/@pnpm/self-installer@3.25.4/index.js -o install.js
-          node install.js
-          export PATH=$HOME/.pnpm-store/latest/node_modules/.bin:$PATH
+      - name: Pnpm install
+        run: pnpm install
   
       - name: Build SvelteKit application
         run: pnpm run build

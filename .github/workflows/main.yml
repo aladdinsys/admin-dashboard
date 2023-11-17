@@ -27,37 +27,33 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-    
-          
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: Setup Node.js and install pnpm
-      run: |
-        curl -L https://unpkg.com/@pnpm/self-installer@3.25.4/index.js -o install.js
-        node install.js
-        export PATH=$HOME/.pnpm-store/latest/node_modules/.bin:$PATH
-
-    - name: Build SvelteKit application
-      run: pnpm run build
-
-    - name: Copy files to server
-      uses: appleboy/scp-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        port: ${{ secrets.PORT }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.SSH_KEY }}
-        source: '/build/*'
-        target: '/var/www/html/'
-
-    - name: SSH into server and restart Nginx (adjust the command as needed)
-      run: ssh -i ${{ secrets.SSH_KEY }} -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'sudo systemctl restart nginx'
+            
+      - name: Checkout repository
+        uses: actions/checkout@v2
+  
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+  
+      - name: Setup Node.js and install pnpm
+        run: |
+          curl -L https://unpkg.com/@pnpm/self-installer@3.25.4/index.js -o install.js
+          node install.js
+          export PATH=$HOME/.pnpm-store/latest/node_modules/.bin:$PATH
+  
+      - name: Build SvelteKit application
+        run: pnpm run build
+  
+      - name: Copy files to server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          port: ${{ secrets.PORT }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: '/build/*'
+          target: '/var/www/html/'
+  
+      - name: SSH into server and restart Nginx (adjust the command as needed)
+        run: ssh -i ${{ secrets.SSH_KEY }} -p ${{ secrets.PORT }} ${{ secrets.USERNAME }}@${{ secrets.HOST }} 'sudo systemctl restart nginx'
